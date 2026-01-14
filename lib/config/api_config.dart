@@ -1,6 +1,9 @@
 class ApiConfig {
   // Base URL Laravel API
-  static const String baseUrl = 'http://127.0.0.1/api';
+  static const String baseUrl = 'http://192.168.9.100:8077/api';
+
+  // test endpoint
+  // static const String testEndpoint = '/test-connect';
   
   // Auth Endpoints
   static const String login = '/absen/login';
