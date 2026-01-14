@@ -49,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               slivers: [
                 // App Bar with Profile Header
                 SliverAppBar(
-                  expandedHeight: 200,
+                  expandedHeight: 210,
                   floating: false,
                   pinned: true,
                   backgroundColor: AppTheme.purple,
