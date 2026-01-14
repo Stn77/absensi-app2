@@ -10,7 +10,7 @@ import '../../widgets/loading_overlay.dart';
 import '../../utils/helpers.dart';
 
 class AbsensiScreen extends StatefulWidget {
-  const AbsensiScreen({Key? key}) : super(key: key);
+  const AbsensiScreen({super.key});
 
   @override
   State<AbsensiScreen> createState() => _AbsensiScreenState();
@@ -91,7 +91,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
               Text(
                 lastAbsensi?.message ?? 'Absensi Anda telah tercatat',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   color: AppTheme.grey,
                 ),
@@ -141,7 +141,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 13,
             color: AppTheme.grey,
           ),
@@ -235,7 +235,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
         children: [
           Text(
             dayFormat.format(now),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               color: AppTheme.grey,
               fontWeight: FontWeight.w500,
@@ -307,7 +307,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                     const SizedBox(height: 4),
                     Text(
                       absensiProvider.hasLocation ? 'Lokasi tersedia' : 'Lokasi belum tersedia',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         color: AppTheme.grey,
                       ),
@@ -339,7 +339,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Latitude',
                         style: TextStyle(fontSize: 12, color: AppTheme.grey),
                       ),
@@ -357,7 +357,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Longitude',
                         style: TextStyle(fontSize: 12, color: AppTheme.grey),
                       ),
@@ -428,14 +428,14 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
   Widget _buildInfoCard() {
     return CustomCard(
       color: AppTheme.purple.withOpacity(0.1),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Icon(Icons.info_outline, color: AppTheme.purple, size: 20),
-              const SizedBox(width: 8),
-              const Text(
+              SizedBox(width: 8),
+              Text(
                 'Informasi',
                 style: TextStyle(
                   fontSize: 14,
@@ -445,7 +445,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           Text(
             '• Pastikan GPS aktif untuk mendapatkan lokasi\n'
             '• Absen datang dilakukan saat pertama kali absen\n'
