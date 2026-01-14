@@ -3,7 +3,7 @@ class ApiConfig {
   static const String baseUrl = 'http://192.168.9.100:8077/api';
 
   // test endpoint
-  // static const String testEndpoint = '/test-connect';
+  static const String testEndpoint = '/test-connect';
   
   // Auth Endpoints
   static const String login = '/absen/login';
