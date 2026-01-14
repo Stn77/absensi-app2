@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// 💡 Impor yang DIBUTUHKAN untuk Global Localization
+import 'package:flutter_localizations/flutter_localizations.dart'; 
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -22,7 +24,7 @@ void main() async {
   // Ensure Flutter binding is initialized
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize date formatting untuk bahasa Indonesia
+  // Initialize date formatting
   await initializeDateFormatting('id_ID', null);
 
   // Initialize storage service
@@ -79,25 +81,33 @@ class MyApp extends StatelessWidget {
               Locale('en', 'US'),
             ],
             
-            // Builder untuk error handling dan text scale
+            // 💡 SOLUSI: Tambahkan Localization Delegates!
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate, // Untuk Material Widgets
+              GlobalWidgetsLocalizations.delegate,  // Untuk Widgets dasar
+              GlobalCupertinoLocalizations.delegate, // Opsional: Untuk iOS-style widgets
+            ],
+            
+            // Error widget builder (separate)
             builder: (context, child) {
               // Error widget builder
               ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-                return Scaffold(
+                // Pastikan ini menggunakan MaterialLocalizations jika ada TextField di sini
+                return const Scaffold(
                   backgroundColor: AppTheme.lavenderMist,
                   body: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: EdgeInsets.all(32),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.error_outline,
                             size: 64,
                             color: AppTheme.error,
                           ),
-                          const SizedBox(height: 24),
-                          const Text(
+                          SizedBox(height: 24),
+                          Text(
                             'Terjadi Kesalahan',
                             style: TextStyle(
                               fontSize: 20,
@@ -105,7 +115,7 @@ class MyApp extends StatelessWidget {
                               color: AppTheme.purpleDeep,
                             ),
                           ),
-                          const SizedBox(height: 12),
+                          SizedBox(height: 12),
                           Text(
                             'Mohon restart aplikasi',
                             style: TextStyle(
@@ -135,34 +145,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// ============================================================================
-// CATATAN PENGGUNAAN:
-// ============================================================================
-// 
-// 1. Provider Usage:
-//    - Gunakan context.read<T>() untuk akses provider tanpa rebuild
-//    - Gunakan context.watch<T>() untuk listen perubahan dan auto rebuild
-//    - Atau gunakan extension: context.authProvider, context.profileProvider
-//
-// 2. Navigation:
-//    - Dengan context: Navigator.pushNamed(context, Routes.home)
-//    - Atau: AppRouter.navigate(context, Routes.home)
-//    - Tanpa context: NavigationService().navigateTo(Routes.home)
-//
-// 3. Provider Initialization:
-//    - Auth provider di-load immediately (lazy: false)
-//    - Profile & Absensi provider di-load on demand (lazy: true)
-//    - Initialize di SplashScreen dengan AppProviders.initializeProviders()
-//
-// 4. Logout Flow:
-//    - Panggil authProvider.logout()
-//    - Atau AppProviders.clearAllProviders(context) untuk clear semua
-//    - Navigate ke login: AppRouter.navigateAndRemoveUntil(context, Routes.login)
-//
-// 5. Error Handling:
-//    - Error widget sudah ter-handle di builder
-//    - Gunakan try-catch di provider methods
-//    - Tampilkan error dengan SnackBarHelper.showError()
-//
-// ============================================================================
