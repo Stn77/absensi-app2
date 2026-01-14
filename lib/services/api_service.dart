@@ -172,4 +172,19 @@ class ApiService {
       throw Exception(data['message'] ?? 'Terjadi kesalahan. Silakan coba lagi.');
     }
   }
+
+  /// Test Connection
+  Future<Map<String, dynamic>> testConnection() async {
+    try {
+      final url = Uri.parse('${ApiConfig.baseUrl}${ApiConfig.testEndpoint}');
+      final response = await http.get(url).timeout(ApiConfig.timeout);
+      return _handleResponse(response);
+    } on SocketException {
+      throw Exception('Tidak ada koneksi internet. Pastikan perangkat terhubung ke jaringan.');
+    } on TimeoutException {
+      throw Exception('Request timeout. Silakan coba lagi.');
+    } catch (e) {
+      throw Exception('Terjadi kesalahan: ${e.toString()}');
+    }
+  }
 }

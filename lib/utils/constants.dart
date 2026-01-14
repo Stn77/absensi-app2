@@ -65,4 +65,5 @@ class Routes {
   static const String absensi = '/absensi';
   static const String history = '/history';
   static const String profile = '/profile';
+  static const String testConnection = '/test-connection';
 }
