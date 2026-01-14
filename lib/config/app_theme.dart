@@ -25,12 +25,11 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      colorScheme: ColorScheme.light(
+      colorScheme: const ColorScheme.light(
         primary: purple,
         secondary: lavenderMedium,
         tertiary: purpleDark,
         surface: white,
-        background: lavenderMist,
         error: error,
       ),
       scaffoldBackgroundColor: lavenderMist,
@@ -65,19 +64,19 @@ class AppTheme {
         fillColor: white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: lavenderLight),
+          borderSide: const BorderSide(color: lavenderLight),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: lavenderLight),
+          borderSide: const BorderSide(color: lavenderLight),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: purple, width: 2),
+          borderSide: const BorderSide(color: purple, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: error),
+          borderSide: const BorderSide(color: error),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
