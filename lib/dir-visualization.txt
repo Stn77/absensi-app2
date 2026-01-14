@@ -1,0 +1,51 @@
+
+lib/
+├── main.dart
+├── config/
+│   ├── api_config.dart           
+│   ├── app_providers.dart
+│   ├── app_router.dart
+│   └── app_theme.dart            
+├── models/
+│   ├── user_model.dart
+│   ├── siswa_model.dart
+│   ├── kelas_model.dart
+│   ├── jurusan_model.dart
+│   ├── login_response.dart
+│   ├── profile_response.dart
+│   ├── riwayat_absen_model.dart
+│   └── absensi_response.dart
+├── services/
+│   ├── api_service.dart
+│   ├── auth_service.dart
+│   ├── absensi_service.dart
+│   ├── profile_service.dart
+│   ├── storage_service.dart
+│   ├── navigation_service.dart
+│   └── location_service.dart
+├── providers/
+│   ├── auth_provider.dart
+│   ├── absensi_provider.dart
+│   └── profile_provider.dart
+├── screens/
+│   ├── splash_screen.dart
+│   ├── auth/
+│   │   └── login_screen.dart
+│   ├── home/
+│   │   └── home_screen.dart
+│   ├── absensi/
+│   │   ├── absensi_screen.dart
+│   │   └── history_screen.dart
+│   └── profile/
+│       └── profile_screen.dart
+├── widgets/
+│   ├── custom_button.dart
+│   ├── custom_textfield.dart
+│   ├── loading_overlay.dart
+│   ├── empty_state.dart
+│   ├── snackbar_helper.dart
+│   └── custom_card.dart
+└── utils/
+    ├── constants.dart
+    ├── helpers.dart
+    └── validators.dart
