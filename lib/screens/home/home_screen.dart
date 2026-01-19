@@ -319,8 +319,17 @@ class _HomeScreenState extends State<HomeScreen> {
           child: _buildActionCard(
             icon: Icons.history,
             title: 'Riwayat',
-            color: AppTheme.purpleDark,
+            color: AppTheme.purple,
             onTap: () => AppRouter.navigate(context, Routes.history),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: _buildActionCard(
+            icon: Icons.create,
+            title: 'Izin',
+            color: AppTheme.purple,
+            onTap: () => AppRouter.navigate(context, Routes.izin),
           ),
         ),
         const SizedBox(width: 12),
@@ -328,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: _buildActionCard(
             icon: Icons.person,
             title: 'Profile',
-            color: AppTheme.lavenderMedium,
+            color: AppTheme.purple,
             onTap: () => AppRouter.navigate(context, Routes.profile),
           ),
         ),

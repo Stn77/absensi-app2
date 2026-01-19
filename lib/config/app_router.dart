@@ -1,3 +1,4 @@
+import 'package:absensi_app/screens/izin/pengajuan_izin.dart';
 import 'package:flutter/material.dart';
 import '../screens/splash_screen.dart';
 import '../screens/auth/login_screen.dart';
@@ -44,6 +45,12 @@ class AppRouter {
       case Routes.profile:
         return _buildRoute(
           const ProfileScreen(),
+          settings: settings,
+        );
+      
+      case Routes.izin:
+        return _buildRoute(
+          const PengajuanIzin(),
           settings: settings,
         );
 

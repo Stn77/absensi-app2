@@ -111,25 +111,29 @@ class _LoginScreenState extends State<LoginScreen> {
             key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
 
-                // Container(
-                //   width: 10,
-                //   height: 100,
-                //   decoration: BoxDecoration(
-                //     color: const Color(0xFF8C45FF),
-                //     borderRadius: BorderRadius.circular(25),
-                //     shape: BoxShape.rectangle,
-                //   ),
-                //   child: const Icon(
-                //     Icons.fingerprint,
-                //     size: 56,
-                //     color: Colors.white,
-                //   ),
-                // ),
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF8C45FF),
+                    borderRadius: BorderRadius.circular(25),
+                    shape: BoxShape.rectangle,
+                  ),
+                  child: const Icon(
+                    Icons.fingerprint,
+                    size: 56,
+                    color: AppTheme.white,
+                  ),
+                ),
 
-                Text(
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * 0.03,
+                ),
+
+                const Text(
                   'Login',
                   textAlign: TextAlign.center,
                   style: TextStyle(

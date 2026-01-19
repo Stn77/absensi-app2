@@ -55,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   backgroundColor: AppTheme.purple,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
                             AppTheme.purple,
@@ -85,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ],
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.person,
                                 size: 56,
                                 color: AppTheme.purple,
@@ -239,7 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Alamat Lengkap',
                                         style: TextStyle(
                                           fontSize: 12,
@@ -302,7 +302,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Text(
                   label,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12,
                     color: AppTheme.grey,
                   ),
