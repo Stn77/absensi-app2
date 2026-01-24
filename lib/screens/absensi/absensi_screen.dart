@@ -10,7 +10,7 @@ import '../../widgets/loading_overlay.dart';
 import '../../utils/helpers.dart';
 
 class AbsensiScreen extends StatefulWidget {
-  const AbsensiScreen({super.key});
+  const AbsensiScreen({Key? key}) : super(key: key);
 
   @override
   State<AbsensiScreen> createState() => _AbsensiScreenState();
@@ -56,83 +56,152 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
       final lastAbsensi = absensiProvider.lastAbsensi;
       
       // Show success dialog
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
+      _showSuccessDialog(lastAbsensi);
+    } else {
+      // Cek apakah sudah absen
+      if (absensiProvider.isAlreadyAbsen) {
+        // Show dialog khusus untuk sudah absen
+        _showAlreadyAbsenDialog(absensiProvider.errorMessage ?? 'Anda sudah melakukan absen hari ini');
+      } else {
+        // Error lainnya
+        SnackBarHelper.showError(
+          context,
+          absensiProvider.errorMessage ?? 'Gagal melakukan absensi',
+        );
+      }
+    }
+  }
+
+  // Dialog untuk success
+  void _showSuccessDialog(dynamic lastAbsensi) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppTheme.success.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.check_circle,
+                size: 64,
+                color: AppTheme.success,
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Absensi Berhasil!',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.purpleDeep,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              lastAbsensi?.message ?? 'Absensi Anda telah tercatat',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppTheme.grey,
+              ),
+            ),
+            if (lastAbsensi != null) ...[
+              const SizedBox(height: 20),
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppTheme.success.withOpacity(0.1),
-                  shape: BoxShape.circle,
+                  color: AppTheme.lavenderMist,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(
-                  Icons.check_circle,
-                  size: 64,
-                  color: AppTheme.success,
-                ),
-              ),
-              const SizedBox(height: 24),
-              const Text(
-                'Absensi Berhasil!',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: AppTheme.purpleDeep,
+                child: Column(
+                  children: [
+                    _buildInfoRow('Waktu', lastAbsensi.data.waktuAbsen),
+                    const SizedBox(height: 8),
+                    _buildInfoRow('Status', lastAbsensi.data.isLate),
+                  ],
                 ),
               ),
-              const SizedBox(height: 12),
-              Text(
-                lastAbsensi?.message ?? 'Absensi Anda telah tercatat',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: AppTheme.grey,
-                ),
-              ),
-              if (lastAbsensi != null) ...[
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: AppTheme.lavenderMist,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    children: [
-                      _buildInfoRow('Waktu', lastAbsensi.data.waktuAbsen),
-                      const SizedBox(height: 8),
-                      _buildInfoRow('Status', lastAbsensi.data.isLate),
-                    ],
-                  ),
-                ),
-              ],
             ],
+          ],
+        ),
+        actions: [
+          CustomButton(
+            text: 'OK',
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context); // Back to home
+            },
+            width: double.infinity,
           ),
-          actions: [
-            CustomButton(
-              text: 'OK',
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context); // Back to home
-              },
-              width: double.infinity,
+        ],
+      ),
+    );
+  }
+
+  // Dialog untuk sudah absen
+  void _showAlreadyAbsenDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppTheme.warning.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.info_outline,
+                size: 64,
+                color: AppTheme.warning,
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Informasi',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.purpleDeep,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppTheme.grey,
+              ),
             ),
           ],
         ),
-      );
-    } else {
-      SnackBarHelper.showError(
-        context,
-        absensiProvider.errorMessage ?? 'Gagal melakukan absensi',
-      );
-    }
+        actions: [
+          CustomButton(
+            text: 'OK',
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            width: double.infinity,
+            backgroundColor: AppTheme.warning,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildInfoRow(String label, String value) {

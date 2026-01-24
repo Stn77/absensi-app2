@@ -99,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                         width: 140,
                         height: 140,
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [
                               AppTheme.purple,
                               AppTheme.purpleDark,
@@ -137,7 +137,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                       const SizedBox(height: 8),
                       
                       // Subtitle
-                      Text(
+                      const Text(
                         'Sistem Absensi Siswa',
                         style: TextStyle(
                           fontSize: 16,
@@ -159,7 +159,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                       const SizedBox(height: 16),
                       
                       // Loading Text
-                      Text(
+                      const Text(
                         'Memuat aplikasi...',
                         style: TextStyle(
                           fontSize: 14,
@@ -174,8 +174,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16),
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.all(16),
         child: Text(
           'Version ${AppConstants.appVersion}',
           textAlign: TextAlign.center,

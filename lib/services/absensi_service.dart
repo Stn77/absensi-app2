@@ -4,6 +4,15 @@ import '../models/absensi_response.dart';
 import '../models/riwayat_absen_model.dart';
 import 'api_service.dart';
 
+// Custom Exception untuk sudah absen
+class AlreadyAbsenException implements Exception {
+  final String message;
+  AlreadyAbsenException(this.message);
+  
+  @override
+  String toString() => message;
+}
+
 class AbsensiService {
   final ApiService _apiService = ApiService();
 
@@ -36,6 +45,13 @@ class AbsensiService {
         },
         requiresAuth: true,
       );
+
+      // Cek jika sudah absen (status 202)
+      if (response['status'] == '202') {
+        throw AlreadyAbsenException(
+          response['message'] ?? 'Anda sudah melakukan absen hari ini'
+        );
+      }
 
       // Parse response ke AbsensiResponse model
       final absensiResponse = AbsensiResponse.fromJson(response);

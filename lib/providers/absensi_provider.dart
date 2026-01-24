@@ -4,6 +4,15 @@ import '../models/riwayat_absen_model.dart';
 import '../services/absensi_service.dart';
 import '../services/location_service.dart';
 
+// Import custom exception
+class AlreadyAbsenException implements Exception {
+  final String message;
+  AlreadyAbsenException(this.message);
+  
+  @override
+  String toString() => message;
+}
+
 class AbsensiProvider extends ChangeNotifier {
   final AbsensiService _absensiService = AbsensiService();
   final LocationService _locationService = LocationService();
@@ -17,6 +26,7 @@ class AbsensiProvider extends ChangeNotifier {
   String? _currentLatitude;
   String? _currentLongitude;
   bool _isGettingLocation = false;
+  bool _isAlreadyAbsen = false; // Flag untuk sudah absen
 
   // Getters
   List<RiwayatAbsenModel> get history => _history;
@@ -28,6 +38,7 @@ class AbsensiProvider extends ChangeNotifier {
   String? get currentLongitude => _currentLongitude;
   bool get isGettingLocation => _isGettingLocation;
   bool get hasLocation => _currentLatitude != null && _currentLongitude != null;
+  bool get isAlreadyAbsen => _isAlreadyAbsen;
 
   /// Get current location
   Future<bool> getCurrentLocation() async {
@@ -74,6 +85,7 @@ class AbsensiProvider extends ChangeNotifier {
   Future<bool> submitAbsensi() async {
     try {
       _errorMessage = null;
+      _isAlreadyAbsen = false;
       _isLoading = true;
       notifyListeners();
 
@@ -96,8 +108,16 @@ class AbsensiProvider extends ChangeNotifier {
 
       notifyListeners();
       return true;
+    } on AlreadyAbsenException catch (e) {
+      // Khusus untuk sudah absen
+      _errorMessage = e.message;
+      _isAlreadyAbsen = true;
+      _isLoading = false;
+      notifyListeners();
+      return false;
     } catch (e) {
       _errorMessage = e.toString().replaceAll('Exception: ', '');
+      _isAlreadyAbsen = false;
       _isLoading = false;
       notifyListeners();
       return false;
